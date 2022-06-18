@@ -7,4 +7,4 @@ For both Recursive and DP method of solving this problem, time and space complex
 
 Basicly, we would like to know when deciding whether to put a specific item into backpack, what is the best result (value) according to current weight limit and items left. 
 
-For recusive method, I created a map of maps, this has more overheap for space comparing two a 2d arry, but essentially both have the same complexity.
+For recusive method, I created a map of maps. This has more overheap for space comparing two a 2d arry, but essentially both have the same complexity.
