@@ -14,7 +14,13 @@ func TestGetBestValueRecursion(t *testing.T) {
 	maxWeight := 5
 	expectBestVal := 7
 
+	// Check recursion
 	if bestVal := GetBestValueRecursion(items, maxWeight); expectBestVal != bestVal {
-		t.Errorf("want %d, get %d", expectBestVal, bestVal)
+		t.Errorf("recursion wants %d, get %d", expectBestVal, bestVal)
+	}
+
+	// Check DP
+	if bestVal := GetBestValueDP(items, maxWeight); expectBestVal != bestVal {
+		t.Errorf("dynamic programming wants %d, get %d", expectBestVal, bestVal)
 	}
 }

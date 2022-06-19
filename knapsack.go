@@ -7,7 +7,7 @@ type Item struct {
 
 // Solve knapsack problem with recursion
 func GetBestValueRecursion(items []Item, totalWeight int) int {
-	// From Top to Bottom. We think about whether to take each one or not,
+	// From top to bottom. We think about whether to take each one or not,
 	// and what's the best result from either decision according to current
 	// left weight.
 
@@ -48,4 +48,39 @@ func GetBestValueRecursion(items []Item, totalWeight int) int {
 	}
 
 	return getBestVal(0, totalWeight)
+}
+
+func GetBestValueDP(items []Item, totalWeight int) int {
+	// From bottom to top, every best value we are trying to get is based on
+	// previous calculated values. Idea is that given maxWeight whether adding
+	// this item will result in a greater value than not adding it
+
+	// Create dp mem, which is a 2d slice, size M (number of items) * N (weight)
+	var mem [][]int = make([][]int, len(items))
+	for i := 0; i < len(items); i++ {
+		mem[i] = make([]int, totalWeight+1)
+		mem[i][0] = 0
+	}
+
+	// For every possible weight, seek the best value that we can get when deciding
+	// whether to add the item or not
+	for i := 1; i <= totalWeight; i++ {
+		// Always add first item to cart if have enough weight
+		if items[0].weight <= i {
+			mem[0][i] = items[0].value
+		}
+
+		for j := 1; j < len(items); j++ {
+			// Get the best value of whether to add this item or not
+			if items[j].weight <= i {
+				mem[j][i] = mem[j-1][i-items[j].weight] + items[j].value
+			}
+
+			if mem[j-1][i] > mem[j][i] {
+				mem[j][i] = mem[j-1][i]
+			}
+		}
+	}
+
+	return mem[len(items)-1][totalWeight]
 }
